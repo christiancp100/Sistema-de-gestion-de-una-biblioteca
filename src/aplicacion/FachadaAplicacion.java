@@ -43,16 +43,24 @@ public class FachadaAplicacion extends Application {
 
     public static void main(String[] args) {
         launch(args);
-
     }
 
+
     //Getters
+    public VPrincipalController getCp() {
+        return cp;
+    }
+
     public FachadaGui getFgui() {
         return fgui;
     }
 
     public GesionLibros getCl() {
         return cl;
+    }
+
+    public GestionUsuarios getGu() {
+        return gu;
     }
 
     //Metodos
@@ -92,13 +100,4 @@ public class FachadaAplicacion extends Application {
     public java.util.List<Ejemplar> actualizarEjemplaresLibro(Integer idLibro, java.util.List<Ejemplar> ejemplares, java.util.List<Integer> borrar){
         return cl.actualizarEjemplaresLibro(idLibro, ejemplares, borrar);
     }
-
-
-
-
-    //MIS MÉTODOS
-    /*public void guiGestionUsuarios(){
-        fgestionUsuarios.setVisible(true);
-    }*/
-
 }

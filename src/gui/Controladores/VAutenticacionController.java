@@ -27,7 +27,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.concurrent.TimeUnit;
 
-public class VAutenticacionController implements Initializable {
+public class VAutenticacionController {
 
 
     private aplicacion.FachadaAplicacion fa;
@@ -94,6 +94,7 @@ public class VAutenticacionController implements Initializable {
         if(fa.comprobarAutentificacion(usuariotxt.getText(), passwordtxt.getText())){
 
             cp.setEtiquetaSesion(usuariotxt.getText());
+            cp.buscarLibros();
             Stage stage = (Stage) entrar.getScene().getWindow();
             stage.close();
             System.out.println("Se ha realizado con éxito la autentificacion");
@@ -102,16 +103,5 @@ public class VAutenticacionController implements Initializable {
             System.out.println("No furula");
         }
 
-    }
-
-    public void accederBiblioteca(){
-
-
-
-    }
-
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
     }
 }

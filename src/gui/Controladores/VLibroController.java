@@ -13,7 +13,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
-public class VLibroController {
+public class VLibroController{
 
 
     Button salirBtn;
@@ -44,6 +44,12 @@ public class VLibroController {
     ListView<String> listaRestoCategorias;
     @FXML
     ListView<String> listaCategoriasLibro;
+    @FXML
+    Button btnActualizarCat;
+    @FXML
+    Button btnBorrar1;
+    @FXML
+    Button btnBorrar2;
 
     java.util.List<String> categorias;
     java.util.List<String> restoCategorias;
@@ -91,6 +97,8 @@ public class VLibroController {
         }
     }
 
+    //Actualizar de la pestaña libros
+
     public void actualizarBtnAction(){
         Libro l;
         l=new Libro(idLibro, textoTitulo.getText(), textoIsbn.getText(), textoEditorial.getText(),
@@ -98,9 +106,11 @@ public class VLibroController {
         l.setAutores(listaAutores.getItems());
         idLibro=fa.actualizarLibro(l);
         textoId.setText(idLibro.toString());
+        btnActualizarCat.setDisable(false);
         //btnActualizarCategoriasLibro.setEnabled(true);
         //btnActualizarEjemplaresLibro.setEnabled(true);
-        //btnBorrarLibro.setEnabled(true);
+        btnBorrar1.setDisable(false);
+        btnBorrar2.setDisable(false);
     }
 
 
@@ -121,4 +131,32 @@ public class VLibroController {
     public void salirAction(){
         vlibro.close();
     }
+
+    public void botonDerechoAction(){
+        if(listaRestoCategorias.getSelectionModel().getSelectedItems().size() > 0){
+            listaCategoriasLibro.getItems().addAll(listaRestoCategorias.getSelectionModel().getSelectedItem());
+            listaRestoCategorias.getItems().remove(listaRestoCategorias.getSelectionModel().getSelectedIndex());
+        }
+    }
+
+    public void botonIzquierdoAction(){
+        if(listaCategoriasLibro.getSelectionModel().getSelectedItems().size() > 0){
+            listaRestoCategorias.getItems().addAll(listaCategoriasLibro.getSelectionModel().getSelectedItem());
+            listaCategoriasLibro.getItems().remove(listaCategoriasLibro.getSelectionModel().getSelectedIndex());
+        }
+    }
+
+    //Actualizar de la pestaña categorias
+    public void btnActualizarCategoriasLibroAction() {
+        fa.actualizarCategoriasLibro(idLibro, listaCategoriasLibro.getItems());
+    }
+
+   public void btnBorrarLibroAction() {
+        if(idLibro != null){
+            fa.borrarLibro(idLibro);
+        }
+        fa.getCp().buscarLibros();
+        vlibro.close();
+    }
+
 }

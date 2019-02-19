@@ -36,7 +36,8 @@ public class GestionUsuarios {
       } else return false;
   }
 
-  /*
+
+  //Metodos de obtencion, creacion y filtrado de usuarios
 
   public java.util.List<Usuario> obtenerUsuarios(){
         try {
@@ -59,6 +60,5 @@ public class GestionUsuarios {
         }
         return fbd.consultarUsuarios();
   }
-  
- */
+
 }

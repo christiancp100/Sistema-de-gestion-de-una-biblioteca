@@ -133,7 +133,7 @@
               <menus>
                 <Menu fx:id="menuAdministrador" mnemonicParsing="false" text="Administrador">
                   <items>
-                    <MenuItem fx:id="userItem" mnemonicParsing="false" text="Usuarios" />
+                    <MenuItem fx:id="userItem" mnemonicParsing="false" onAction="#clickUsuario" text="Usuarios" />
                         <MenuItem fx:id="categoryItem" mnemonicParsing="false" text="Categorías" />
                   </items>
                 </Menu>

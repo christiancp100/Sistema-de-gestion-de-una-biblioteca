@@ -135,7 +135,7 @@
                <bottom>
                   <HBox BorderPane.alignment="CENTER">
                      <children>
-                        <Button mnemonicParsing="false" prefHeight="32.0" prefWidth="132.0" text="Borrar Libro" />
+                        <Button fx:id="btnBorrar1" disable="true" mnemonicParsing="false" onAction="#btnBorrarLibroAction" prefHeight="32.0" prefWidth="132.0" text="Borrar Libro" />
                         <Region prefHeight="32.0" prefWidth="254.0" />
                         <Button fx:id="salirBtn" mnemonicParsing="false" onAction="#salirAction" text="Salir" />
                      </children>
@@ -170,13 +170,13 @@
                            <children>
                               <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
                                  <children>
-                                    <Button fx:id="flechaIzquierda" mnemonicParsing="false">
+                                    <Button fx:id="flechaIzquierda" mnemonicParsing="false" onAction="#botonIzquierdoAction">
                                        <VBox.margin>
                                           <Insets bottom="20.0" top="50.0" />
                                        </VBox.margin>
                                     </Button>
-                                    <Button fx:id="flechaDerecha" mnemonicParsing="false" />
-                                    <Button disable="true" mnemonicParsing="false" text="Actualizar">
+                                    <Button fx:id="flechaDerecha" mnemonicParsing="false" onAction="#botonDerechoAction" />
+                                    <Button fx:id="btnActualizarCat" disable="true" mnemonicParsing="false" onAction="#btnActualizarCategoriasLibroAction" text="Actualizar">
                                        <VBox.margin>
                                           <Insets top="40.0" />
                                        </VBox.margin>
@@ -191,7 +191,7 @@
                <bottom>
                   <HBox BorderPane.alignment="CENTER">
                      <children>
-                        <Button disable="true" mnemonicParsing="false" prefHeight="31.0" prefWidth="148.0" text="Borrar Libro" />
+                        <Button fx:id="btnBorrar2" disable="true" mnemonicParsing="false" onAction="#btnBorrarLibroAction" prefHeight="31.0" prefWidth="148.0" text="Borrar Libro" />
                         <Region prefHeight="31.0" prefWidth="317.0" HBox.hgrow="ALWAYS" />
                         <Button mnemonicParsing="false" onAction="#salirAction" text="Salir" />
                      </children>
@@ -257,7 +257,7 @@
                <bottom>
                   <HBox BorderPane.alignment="CENTER">
                      <children>
-                        <Button mnemonicParsing="false" text="Borrar Libro" />
+                        <Button mnemonicParsing="false" onAction="#btnBorrarLibroAction" text="Borrar Libro" />
                         <Region prefHeight="0.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
                         <Button mnemonicParsing="false" onAction="#salirAction" text="Salir" />
                      </children>

@@ -20,6 +20,7 @@ import java.util.ArrayList;
 
 public class VPrincipalController {
     VAutenticacionController va;
+    VGestionUsuariosController vgu;
     FachadaAplicacion fa;
     VLibroController vl;
     //Componentes
@@ -52,6 +53,7 @@ public class VPrincipalController {
 
     public VPrincipalController(FachadaAplicacion fa){
         this.fa = fa;
+        vgu = new VGestionUsuariosController(fa);
     }
 
     public void botonNuevoAccion(ActionEvent event) {
@@ -80,6 +82,11 @@ public class VPrincipalController {
         javafx.collections.ObservableList<Libro> listaFinal = FXCollections.observableArrayList();
         listaFinal.addAll(listaLibros);
         tablaLibros.setItems(listaFinal);
+    }
+
+    //Click en apartado de usuario
+    public void clickUsuario(){
+        vgu.display();
     }
 
 

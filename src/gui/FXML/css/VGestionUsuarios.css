@@ -1,0 +1,28 @@
+.menu-button {
+    -fx-padding: 0;
+    -fx-background-radius: 0;
+    -fx-background-color: #1d1d1d;
+    -fx-text-fill: #d8d8d8;
+    -fx-background-insets: 0 0 0 0, 0, 1, 2;
+}
+
+.menu-item{
+    -fx-padding: 5 22 5 22;
+    -fx-border-color: white;
+    -fx-border-width: 0 2;
+    -fx-background-radius: 0;
+    -fx-background-color: #1d1d1d;
+    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    -fx-font-size: 11pt;
+    -fx-text-fill: #d8d8d8;
+    -fx-background-insets: 0 0 0 0, 0, 1, 2;
+}
+
+.menu-item:focused{
+    -fx-background-color: black;
+}
+
+
+#item2{
+    -fx-border-width: 0 2 2 2;
+}
