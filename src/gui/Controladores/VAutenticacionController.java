@@ -76,6 +76,7 @@ public class VAutenticacionController {
         });
     }
 
+
     public void closeOnCancel(){
         System.exit(0);
     }

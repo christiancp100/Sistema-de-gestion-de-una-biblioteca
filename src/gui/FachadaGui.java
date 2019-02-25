@@ -44,8 +44,8 @@ public class FachadaGui {
             categorias.add(c.getNombre());
         }
         
-        vl=new VLibroController(fa, categorias, restoCategorias);
-        vl.display();
+        vl=new VLibroController(fa, l, categorias, restoCategorias);
+        vl.display(l);
     }
 
     public void nuevoLibro(java.util.List<String>  restoCategorias){
@@ -54,7 +54,10 @@ public class FachadaGui {
         vl.display();
     }
 
-
-    
+    //Parte de categorias
+    public void verCategorias(){
+        VGestionCategoriasController vgc = new VGestionCategoriasController(fa);
+        vgc.display();
+    }
    
 }

@@ -18,6 +18,7 @@ public class Usuario {
     private String direccion;
     private String email;
     private TipoUsuario tipo;
+    private String tipoStr;
 
    public Usuario (String idUsuario, String clave, String nombre, String direccion, String email, TipoUsuario tipo){
     this.idUsuario=idUsuario;
@@ -26,9 +27,15 @@ public class Usuario {
     this.direccion=direccion;
     this.email=email;
     this.tipo=tipo;
+    //Creo un tipoStr para que tableView me enseñe el tipo
+    this.tipoStr = tipo.toString();
    }
 
-   public String getIdUsuario(){
+    public String getTipoStr() {
+        return tipoStr;
+    }
+
+    public String getIdUsuario(){
 
        return this.idUsuario;
    }

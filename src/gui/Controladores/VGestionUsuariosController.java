@@ -12,6 +12,9 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
+import javax.xml.soap.Text;
+import java.sql.SQLException;
+
 public class VGestionUsuariosController {
 
     private Stage guWindow;
@@ -28,7 +31,16 @@ public class VGestionUsuariosController {
     TextField usuarioBuscarTxt;
     @FXML
     TextField idBuscarTxt;
-
+    @FXML
+    TextField idTxt;
+    @FXML
+    TextField nombreTxt;
+    @FXML
+    TextField claveTxt;
+    @FXML
+    TextField direccionTxt;
+    @FXML
+    TextField emailTxt;
     @FXML
     TableView<Usuario> tablaUsuarios;
     @FXML
@@ -38,7 +50,7 @@ public class VGestionUsuariosController {
     @FXML
     TableColumn<Usuario, String> emailCol;
     @FXML
-    TableColumn<Usuario, TipoUsuario> tipoCol;
+    TableColumn<Usuario, String> tipoCol;
 
 
     public VGestionUsuariosController(FachadaAplicacion fa){
@@ -75,19 +87,59 @@ public class VGestionUsuariosController {
         selectorTipo.setText(normalSel.getText());
     }
 
-    //Busqueda de usuarios y representacion en tabla
-    public void mostrarUsuarios(){
 
+
+    private void crearColumnas() {
         idCol.setCellValueFactory(new PropertyValueFactory<>("idUsuario"));
         nombreCol.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         emailCol.setCellValueFactory(new PropertyValueFactory<>("email"));
-        tipoCol.setCellValueFactory(new PropertyValueFactory<>("tipo"));
+        tipoCol.setCellValueFactory(new PropertyValueFactory<>("tipoStr"));
+    }
 
-        java.util.List<Usuario> listaUsuarios= fa.getGu().obtenerUsuarios();
+    public void buscarUsuarios() throws SQLException {
+
+        crearColumnas();
+
         // ((buscaId.getText().isEmpty())?null:Integer.parseInt(buscaId.getText()), buscaTitulo.getText(), buscaIsbn.getText(), buscaAutor.getText());
+
+        java.util.List<Usuario> listaUsuarios= fa.getGu().filtrarUsuarios(idBuscarTxt.getText(), usuarioBuscarTxt.getText());
         javafx.collections.ObservableList<Usuario> listaFinal = FXCollections.observableArrayList();
         listaFinal.addAll(listaUsuarios);
-        System.out.println(listaFinal.get(0).getTipoUsuario());
         tablaUsuarios.setItems(listaFinal);
+    }
+
+
+    //Busqueda de usuarios y representacion en tabla
+    public void mostrarUsuarios(){
+
+        crearColumnas();
+
+        java.util.List<Usuario> listaUsuarios= fa.getGu().obtenerUsuarios();
+        javafx.collections.ObservableList<Usuario> listaFinal = FXCollections.observableArrayList();
+        listaFinal.addAll(listaUsuarios);
+        tablaUsuarios.setItems(listaFinal);
+    }
+
+    public void nuevoUsuario(){
+        if(!idTxt.getText().isEmpty() &&
+                !nombreTxt.getText().isEmpty() &&
+                !emailTxt.getText().isEmpty() &&
+                !nombreTxt.getText().isEmpty() &&
+                !claveTxt.getText().isEmpty() &&
+                !direccionTxt.getText().isEmpty() &&
+                !selectorTipo.getText().equals("Tipo")
+        ){
+
+            Usuario usuario  = new Usuario(
+                    idTxt.getText(),
+                    claveTxt.getText(),
+                    nombreTxt.getText(),
+                    direccionTxt.getText(),
+                    emailTxt.getText(),
+                    aplicacion.TipoUsuario.valueOf(selectorTipo.getText())
+            );
+            fa.getGu().crearUsuario(usuario);
+        }
+
     }
 }

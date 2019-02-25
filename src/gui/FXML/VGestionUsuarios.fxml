@@ -28,8 +28,8 @@
                   <Insets top="10.0" />
                </HBox.margin>
             </Label>
-            <TextField fx:id="idBuscarTxt" prefHeight="27.0" prefWidth="65.0" />
-            <Region prefHeight="33.0" prefWidth="28.0" HBox.hgrow="ALWAYS" />
+            <TextField fx:id="idBuscarTxt" prefHeight="33.0" prefWidth="119.0" />
+            <Region prefHeight="33.0" prefWidth="9.0" HBox.hgrow="ALWAYS" />
             <Label text="Usuario:">
                <HBox.margin>
                   <Insets top="10.0" />
@@ -37,7 +37,7 @@
             </Label>
             <TextField fx:id="usuarioBuscarTxt" prefHeight="33.0" prefWidth="166.0" />
             <Region prefHeight="33.0" prefWidth="5.0" HBox.hgrow="ALWAYS" />
-            <Button mnemonicParsing="false" onAction="#mostrarUsuarios" text="Buscar" />
+            <Button mnemonicParsing="false" onAction="#buscarUsuarios" text="Buscar" />
          </children>
          <BorderPane.margin>
             <Insets left="30.0" right="30.0" top="30.0" />
@@ -70,7 +70,7 @@
                         <Insets top="10.0" />
                      </HBox.margin>
                   </Label>
-                  <TextField prefHeight="27.0" prefWidth="65.0" />
+                  <TextField fx:id="idTxt" prefHeight="27.0" prefWidth="65.0" />
                   <Region prefHeight="0.0" prefWidth="65.0" />
                   <Label text="Clave:">
                      <HBox.margin>
@@ -78,7 +78,7 @@
                      </HBox.margin>
                   </Label>
                   <Region prefHeight="34.0" prefWidth="26.0" />
-                  <PasswordField prefHeight="33.0" prefWidth="141.0" />
+                  <PasswordField fx:id="claveTxt" prefHeight="33.0" prefWidth="141.0" />
                   <MenuButton id="menuButton" fx:id="selectorTipo" alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="34.0" prefWidth="92.0" style="-fx-background-color: #1d1d1d;" text="Tipo" textFill="WHITE" HBox.hgrow="ALWAYS">
                     <items>
                       <MenuItem fx:id="adminSel" mnemonicParsing="false" onAction="#clickAdmin" text="Administrador" />
@@ -103,26 +103,26 @@
                         <Insets top="10.0" />
                      </HBox.margin>
                   </Label>
-                  <TextField prefHeight="27.0" prefWidth="65.0" />
-                  <Region prefHeight="0.0" prefWidth="65.0" />
+                  <TextField fx:id="nombreTxt" prefHeight="27.0" prefWidth="65.0" />
+                  <Region prefHeight="33.0" prefWidth="40.0" />
                   <Label text="Email:">
                      <HBox.margin>
                         <Insets top="10.0" />
                      </HBox.margin>
                   </Label>
-                  <TextField prefHeight="27.0" prefWidth="65.0" />
-                  <Region prefHeight="0.0" prefWidth="65.0" />
+                  <TextField fx:id="emailTxt" prefHeight="33.0" prefWidth="104.0" />
+                  <Region prefHeight="33.0" prefWidth="56.0" />
                   <Label text="Dirección:">
                      <HBox.margin>
                         <Insets top="10.0" />
                      </HBox.margin>
                   </Label>
-                  <TextField prefHeight="33.0" prefWidth="101.0" />
+                  <TextField fx:id="direccionTxt" prefHeight="33.0" prefWidth="101.0" />
                </children>
             </HBox>
             <HBox spacing="20.0">
                <children>
-                  <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="152.0" text="Nuevo" />
+                  <Button mnemonicParsing="false" onAction="#nuevoUsuario" prefHeight="31.0" prefWidth="152.0" text="Nuevo" />
                   <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="148.0" text="Guardar" />
                   <Button layoutX="69.0" layoutY="10.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="137.0" text="Borrar" />
                   <Region prefHeight="31.0" prefWidth="10.0" HBox.hgrow="ALWAYS" />

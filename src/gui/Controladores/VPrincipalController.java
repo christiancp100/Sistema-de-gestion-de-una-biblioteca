@@ -48,6 +48,8 @@ public class VPrincipalController {
     private Label etiquetaSesion;
     @FXML
     public Button botonNuevo;
+    @FXML
+    public Button editarBtn;
 
     //Constructor
 
@@ -89,5 +91,21 @@ public class VPrincipalController {
         vgu.display();
     }
 
+    public void editarTabla(){
+        int seleccion = tablaLibros.getSelectionModel().getSelectedIndex();
+       if(seleccion < 0){
+           return;
+       }
 
+       editarBtn.setDisable(false);
+    }
+
+    public void editarBtnAction(){
+        int seleccion = tablaLibros.getSelectionModel().getSelectedIndex();
+        fa.visualizarLibro(tablaLibros.getItems().get(seleccion).getIdLibro());
+    }
+
+    public void mostrarCategorias(){
+        fa.mostrarVentanaCategorias();
+    }
 }

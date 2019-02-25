@@ -88,7 +88,7 @@
                   </VBox>
                </children>
             </VBox>
-            <TableView fx:id="tablaLibros" prefHeight="164.0" prefWidth="500.0" VBox.vgrow="ALWAYS">
+            <TableView fx:id="tablaLibros" onMouseClicked="#editarTabla" prefHeight="164.0" prefWidth="500.0" VBox.vgrow="ALWAYS">
               <columns>
                 <TableColumn fx:id="idCol" prefWidth="75.0" text="ID" />
                   <TableColumn fx:id="autoresCol" prefWidth="75.0" text="Autores" />
@@ -110,7 +110,7 @@
       <HBox spacing="20.0" BorderPane.alignment="CENTER">
          <children>
             <Button fx:id="botonNuevo" mnemonicParsing="false" onAction="#botonNuevoAccion" text="Nuevo" />
-            <Button disable="true" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" text="Editar" />
+            <Button fx:id="editarBtn" disable="true" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#editarBtnAction" text="Editar" />
             <Region prefHeight="0.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
             <Button fx:id="botonNuevo1" mnemonicParsing="false" onAction="#salirAction" text="Salir">
                <HBox.margin>
@@ -134,7 +134,7 @@
                 <Menu fx:id="menuAdministrador" mnemonicParsing="false" text="Administrador">
                   <items>
                     <MenuItem fx:id="userItem" mnemonicParsing="false" onAction="#clickUsuario" text="Usuarios" />
-                        <MenuItem fx:id="categoryItem" mnemonicParsing="false" text="Categorías" />
+                        <MenuItem fx:id="categoryItem" mnemonicParsing="false" onAction="#mostrarCategorias" text="Categorías" />
                   </items>
                 </Menu>
               </menus>

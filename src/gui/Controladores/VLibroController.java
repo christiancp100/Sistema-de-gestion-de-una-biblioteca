@@ -1,7 +1,10 @@
 package gui.Controladores;
 
+import aplicacion.Categoria;
 import aplicacion.FachadaAplicacion;
 import aplicacion.Libro;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -12,6 +15,8 @@ import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+
+import java.util.ArrayList;
 
 public class VLibroController{
 
@@ -71,6 +76,78 @@ public class VLibroController{
         this.categorias = categorias;
     }
 
+
+    public VLibroController(aplicacion.FachadaAplicacion fa, Libro libro, java.util.List<String> categorias, java.util.List<String> restoCategorias) {
+        this.fa = fa;
+        this.idLibro=libro.getIdLibro();
+        this.ejemplaresBorrados = new java.util.ArrayList<Integer>();
+        listaRestoCategorias = new ListView<>();
+        listaRestoCategorias.getItems().addAll(restoCategorias);
+        this.restoCategorias = restoCategorias;
+    }
+
+    public void display(Libro libro){
+
+        vlibro = new Stage();
+
+        //Cargamos el FXML
+        try {
+
+            //Bloquea las otras ventanas
+            vlibro.initModality(Modality.APPLICATION_MODAL);
+            vlibro.setTitle("Gestión de Libros");
+            vlibro.setMinWidth(250);
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/FXML/VLibro.fxml"));
+            //fxmlLoader.setRoot(this);
+            fxmlLoader.setController(this);
+            Parent root1 = (Parent) fxmlLoader.load();
+            vlibro.setScene(new Scene(root1));
+            vlibro.show();
+
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+
+
+        //Añadimos la lista de categorías
+        listaRestoCategorias.getItems().addAll(restoCategorias);
+        //Añadimos todos los campos del libro seleccionado en los campos de edicion
+        textoTitulo.setText(libro.getTitulo());
+        textoId.setText(libro.getIdLibro().toString());
+        textoPaginas.setText(libro.getPaginas().toString());
+        textoEditorial.setText(libro.getEditorial());
+        textoIsbn.setText(libro.getIsbn());
+        textoAno.setText(libro.getAno());
+
+        btnActualizarCat.setDisable(false);
+
+        //Representamos las categorias
+
+        ArrayList<String> categorias = new ArrayList<>();
+
+        for(Categoria cat : libro.getCategorias()){
+            categorias.add(cat.getNombre());
+        }
+        ObservableList<String> categoriasLibro = FXCollections.observableList(categorias);
+        listaCategoriasLibro.setItems(categoriasLibro);
+
+        //Representamos los autores
+
+        ArrayList<String> autores = new ArrayList<>();
+
+        for(String autor : libro.getAutores()){
+            autores.add(autor);
+        }
+        ObservableList<String> autoresFinal = FXCollections.observableList(autores);
+        listaAutores.setItems(autoresFinal);
+
+        //Activamos los botones de borrar el libro
+        btnBorrar1.setDisable(false);
+        btnBorrar2.setDisable(false);
+
+    }
+
+
     public void display(){
 
         vlibro = new Stage();
@@ -129,6 +206,7 @@ public class VLibroController{
     }
 
     public void salirAction(){
+        fa.getCp().buscarLibros();
         vlibro.close();
     }
 

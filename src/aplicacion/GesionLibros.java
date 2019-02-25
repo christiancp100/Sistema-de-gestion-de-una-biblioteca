@@ -29,7 +29,6 @@ public class GesionLibros{
         Libro l;
         l=fbd.consultarLibro(idLibro);
         restoCategorias=fbd.obtenerRestoCategorias(idLibro);
-        System.out.println("comemela xurxo" + restoCategorias);
         fgui.visualizaLibro(l, restoCategorias);
     }
 
@@ -42,7 +41,7 @@ public class GesionLibros{
 
         fgui.nuevoLibro(restoCategorias);
     }
-    
+
     public Integer actualizarLibro(Libro l){
         
        Integer idLibro;

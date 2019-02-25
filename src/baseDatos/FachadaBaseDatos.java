@@ -148,4 +148,16 @@ public class FachadaBaseDatos {
         return daoCategorias.consultarCategorias();
     }
 
+
+    public void anhadirCategoria(Categoria categoria){
+        daoCategorias.crearCategoria(categoria);
+    }
+
+    public void borrarCategoria(String nombre){
+        daoCategorias.borrarCategoria(nombre);
+    }
+
+    public boolean consultarCategoriaEnUso(String categoria){
+        return daoCategorias.comprobarCategoriaEnUso(categoria);
+    }
 }

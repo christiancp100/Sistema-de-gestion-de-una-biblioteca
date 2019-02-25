@@ -17,6 +17,7 @@ public class FachadaAplicacion extends Application {
     private FachadaGui fgui;
     private GestionUsuarios gu;
     private GesionLibros cl;
+    private GestionCategorias cg;
     private FachadaBaseDatos fbd;
     private VPrincipalController cp;
 
@@ -27,6 +28,7 @@ public class FachadaAplicacion extends Application {
         fbd = new FachadaBaseDatos(this);
         gu = new GestionUsuarios(fgui, fbd);
         cl = new GesionLibros(fgui, fbd);
+        cg = new GestionCategorias(fbd, fgui);
     }
 
     @Override
@@ -35,7 +37,7 @@ public class FachadaAplicacion extends Application {
         fxmlLoader.setController(cp);
         Parent root = fxmlLoader.load();
         primaryStage.setTitle("Biblioteca de Informática");
-        primaryStage.setScene(new Scene(root, 600, 400));
+        primaryStage.setScene(new Scene(root, 800, 600));
         primaryStage.show();
         fgui.iniciaVista();
     }
@@ -61,6 +63,10 @@ public class FachadaAplicacion extends Application {
 
     public GestionUsuarios getGu() {
         return gu;
+    }
+
+    public GestionCategorias getCg() {
+        return cg;
     }
 
     //Metodos
@@ -96,8 +102,11 @@ public class FachadaAplicacion extends Application {
     public void actualizarCategoriasLibro(Integer idLibro, java.util.List<String> categorias){
         cl.actualizarCategoriasLibro(idLibro, categorias);
     }
-
     public java.util.List<Ejemplar> actualizarEjemplaresLibro(Integer idLibro, java.util.List<Ejemplar> ejemplares, java.util.List<Integer> borrar){
         return cl.actualizarEjemplaresLibro(idLibro, ejemplares, borrar);
     }
+    public void mostrarVentanaCategorias(){
+        cg.verCategorias();
+    }
+
 }

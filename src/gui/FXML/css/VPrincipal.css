@@ -183,3 +183,7 @@
 #pane{
     -fx-background-color: -fx-primary;
 }
+
+#descripcionTxt{
+    -fx-border-width: 1 1 1 1;
+}
