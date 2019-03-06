@@ -221,14 +221,19 @@ public class VGestionUsuariosController {
 
     public void guardarAction() throws SQLException {
 
-        java.util.List<Usuario> usuarios = fa.getGu().filtrarUsuarios(idTxt.getText(), null);
-        //En este caso estarias
-        if(usuarios.size() >= 1){
-            actualizarUsuario();
-        }else{
-            nuevoUsuario();
+        try{
+            java.util.List<Usuario> usuarios = fa.getGu().filtrarUsuarios(idTxt.getText(), null);
+            //En este caso estarias
+            if(usuarios.size() >= 1){
+                actualizarUsuario();
+            }else{
+                nuevoUsuario();
+            }
+            mostrarUsuarios();
+        }catch (Exception e){
+            fa.muestraExcepcion("Error, no se ha podido guardar", 0);
         }
-        mostrarUsuarios();
+
     }
 
 

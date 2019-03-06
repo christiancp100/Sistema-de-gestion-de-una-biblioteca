@@ -29,9 +29,10 @@ public class FachadaGui {
        va.display();
     }
 
-    public void muestraExcepcion(String txtExcepcion){
+    public void muestraExcepcion(String txtExcepcion, int tipo){
         VAvisoController va;
-        va = new VAvisoController();
+        va = new VAvisoController(txtExcepcion, tipo );
+        va.display();
     }
 
     public void setUserLabel(String nombre){

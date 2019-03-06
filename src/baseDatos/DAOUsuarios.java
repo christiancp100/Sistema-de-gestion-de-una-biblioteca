@@ -44,7 +44,7 @@ public class DAOUsuarios extends AbstractDAO {
         }
         } catch (SQLException e){
           System.out.println(e.getMessage());
-          this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
+          this.getFachadaAplicacion().muestraExcepcion(e.getMessage(), 0);
         }finally{
           try {stmUsuario.close();} catch (SQLException e){System.out.println("Imposible cerrar cursores");}
         }
@@ -77,7 +77,7 @@ public class DAOUsuarios extends AbstractDAO {
             
         }catch (SQLException e){
             System.out.println(e.getMessage());
-          this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
+          this.getFachadaAplicacion().muestraExcepcion(e.getMessage(), 0);
         }finally{stmUsuario.close();}
         
         return usuarios;
@@ -154,7 +154,7 @@ public class DAOUsuarios extends AbstractDAO {
             
         }catch (SQLException e){
             System.out.println(e.getMessage());
-          this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
+          this.getFachadaAplicacion().muestraExcepcion(e.getMessage(), 0);
         }finally{stmUsuario.close();}
 
         
@@ -186,7 +186,7 @@ public class DAOUsuarios extends AbstractDAO {
 
         } catch (SQLException e){
             System.out.println(e.getMessage());
-            this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
+            this.getFachadaAplicacion().muestraExcepcion(e.getMessage(), 0);
         }finally{
             try {stmEjemplar.close();} catch (SQLException e){System.out.println("Imposible cerrar cursores");}
         }
@@ -205,7 +205,7 @@ public class DAOUsuarios extends AbstractDAO {
 
         } catch (SQLException e){
             System.out.println(e.getMessage());
-            this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
+            this.getFachadaAplicacion().muestraExcepcion(e.getMessage(), 0);
         }finally{
             try {stmEjemplar.close();} catch (SQLException e){System.out.println("Imposible cerrar cursores");}
         }

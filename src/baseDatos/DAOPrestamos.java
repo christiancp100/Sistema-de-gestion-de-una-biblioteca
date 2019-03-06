@@ -45,7 +45,7 @@ public class DAOPrestamos extends AbstractDAO {
             }
         } catch (SQLException e){
             System.out.println(e.getMessage());
-            this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
+            this.getFachadaAplicacion().muestraExcepcion(e.getMessage(), 0);
         }finally{
             try {stmPrestamos.close();} catch (SQLException e){System.out.println("Imposible cerrar cursores");}
         }
@@ -77,7 +77,7 @@ public class DAOPrestamos extends AbstractDAO {
             }
         } catch (SQLException e){
             System.out.println(e.getMessage());
-            this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
+            this.getFachadaAplicacion().muestraExcepcion(e.getMessage(), 0);
         }finally{
             try {stmPrestamos.close();} catch (SQLException e){System.out.println("Imposible cerrar cursores");}
         }
@@ -113,7 +113,7 @@ public class DAOPrestamos extends AbstractDAO {
             }
         } catch (SQLException e){
             System.out.println(e.getMessage());
-            this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
+            this.getFachadaAplicacion().muestraExcepcion(e.getMessage(), 0);
         }finally{
             try {stmPrestamos.close();} catch (SQLException e){System.out.println("Imposible cerrar cursores");}
         }
@@ -151,7 +151,7 @@ public class DAOPrestamos extends AbstractDAO {
             }
         } catch (SQLException e){
             System.out.println(e.getMessage());
-            this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
+            this.getFachadaAplicacion().muestraExcepcion(e.getMessage(), 0);
         }finally{
             try {stmPrestamos.close();} catch (SQLException e){System.out.println("Imposible cerrar cursores");}
         }
@@ -188,7 +188,7 @@ public class DAOPrestamos extends AbstractDAO {
 
         } catch (SQLException e){
             System.out.println(e.getMessage());
-            this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
+            this.getFachadaAplicacion().muestraExcepcion(e.getMessage(), 0);
         }finally{
             try {stmPrestamos.close();} catch (SQLException e){System.out.println("Imposible cerrar cursores");}
         }
@@ -225,7 +225,7 @@ public class DAOPrestamos extends AbstractDAO {
                 }
             } catch (SQLException e){
                 System.out.println(e.getMessage());
-                this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
+                this.getFachadaAplicacion().muestraExcepcion(e.getMessage(), 0);
             }finally{
                 try {stmPrestamos.close();} catch (SQLException e){System.out.println("Imposible cerrar cursores");}
             }
@@ -250,7 +250,7 @@ public class DAOPrestamos extends AbstractDAO {
 
         } catch (SQLException e){
             System.out.println(e.getMessage());
-            this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
+            this.getFachadaAplicacion().muestraExcepcion(e.getMessage(), 0);
         }finally{
             try {stmPrestamos.close();} catch (SQLException e){System.out.println("Imposible cerrar cursores");}
         }
@@ -276,7 +276,7 @@ public class DAOPrestamos extends AbstractDAO {
 
         } catch (SQLException e){
             System.out.println(e.getMessage());
-            this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
+            this.getFachadaAplicacion().muestraExcepcion(e.getMessage(), 0);
         }finally{
             try {stmPrestamos.close();} catch (SQLException e){System.out.println("Imposible cerrar cursores");}
         }

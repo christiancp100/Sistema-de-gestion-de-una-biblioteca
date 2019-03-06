@@ -75,8 +75,8 @@ public class FachadaAplicacion extends Application {
     }
 
     //Metodos
-    public void muestraExcepcion(String txtExcepcion){
-        fgui.muestraExcepcion(txtExcepcion);
+    public void muestraExcepcion(String txtExcepcion, int tipo){
+        fgui.muestraExcepcion(txtExcepcion, tipo);
     }
 
     public Boolean comprobarAutentificacion(String idUsuario, String clave){

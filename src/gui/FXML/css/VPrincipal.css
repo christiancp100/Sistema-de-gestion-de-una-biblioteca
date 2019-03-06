@@ -192,3 +192,7 @@
 .check-box{
     -fx-background-color: -fx-primary;
 }
+
+#textoAviso{
+    -fx-text-fill: black;
+}

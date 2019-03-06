@@ -70,7 +70,7 @@ public class DAOLibros extends AbstractDAO {
             }
             }catch (SQLException e){
               System.out.println(e.getMessage());
-              this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
+              this.getFachadaAplicacion().muestraExcepcion(e.getMessage(), 0);
             } finally {
               stmAutores.close();
             }
@@ -79,7 +79,7 @@ public class DAOLibros extends AbstractDAO {
 
         } catch (SQLException e){
           System.out.println(e.getMessage());
-          this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
+          this.getFachadaAplicacion().muestraExcepcion(e.getMessage(), 0);
         }finally{
           try {stmCatalogo.close();} catch (SQLException e){System.out.println("Imposible cerrar cursores");}
         }
@@ -125,7 +125,7 @@ public class DAOLibros extends AbstractDAO {
             }
             } catch (SQLException e){
                   System.out.println(e.getMessage());
-                  this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
+                  this.getFachadaAplicacion().muestraExcepcion(e.getMessage(), 0);
             }finally{
               stmAutores.close();
              }
@@ -141,7 +141,7 @@ public class DAOLibros extends AbstractDAO {
             }
             } catch (SQLException e){
                  System.out.println(e.getMessage());
-                 this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
+                 this.getFachadaAplicacion().muestraExcepcion(e.getMessage(), 0);
              }finally{
                 stmCategorias.close();
               }
@@ -159,7 +159,7 @@ public class DAOLibros extends AbstractDAO {
             }
             } catch (SQLException e){
                  System.out.println(e.getMessage());
-                 this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
+                 this.getFachadaAplicacion().muestraExcepcion(e.getMessage(), 0);
             }finally{
                stmEjemplares.close();
             }
@@ -167,7 +167,7 @@ public class DAOLibros extends AbstractDAO {
 
         } catch (SQLException e){
           System.out.println(e.getMessage());
-          this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
+          this.getFachadaAplicacion().muestraExcepcion(e.getMessage(), 0);
         }finally{
           try {
                stmLibro.close();
@@ -200,7 +200,7 @@ public class DAOLibros extends AbstractDAO {
 
         } catch (SQLException e){
           System.out.println(e.getMessage());
-          this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
+          this.getFachadaAplicacion().muestraExcepcion(e.getMessage(), 0);
         }finally{
           try {stmEjemplares.close();} catch (SQLException e){System.out.println("Imposible cerrar cursores");}
         }
@@ -236,7 +236,7 @@ public class DAOLibros extends AbstractDAO {
 
         } catch (SQLException e){
           System.out.println(e.getMessage());
-          this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
+          this.getFachadaAplicacion().muestraExcepcion(e.getMessage(), 0);
         }finally{
           try {stmCategorias.close();} catch (SQLException e){System.out.println("Imposible cerrar cursores");}
         }
@@ -287,11 +287,11 @@ public class DAOLibros extends AbstractDAO {
         }
         } catch (SQLException e){
           System.out.println(e.getMessage());
-          this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
+          this.getFachadaAplicacion().muestraExcepcion(e.getMessage(), 0);
         }finally{stmAutores.close();}
         } catch (SQLException e){
           System.out.println(e.getMessage());
-          this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
+          this.getFachadaAplicacion().muestraExcepcion(e.getMessage(), 0);
         }finally{
           try {stmLibro.close();} catch (SQLException e){System.out.println("Imposible cerrar cursores");}
         }
@@ -312,7 +312,7 @@ public class DAOLibros extends AbstractDAO {
 
         } catch (SQLException e){
           System.out.println(e.getMessage());
-          this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
+          this.getFachadaAplicacion().muestraExcepcion(e.getMessage(), 0);
         }finally{
           try {stmLibro.close();} catch (SQLException e){System.out.println("Imposible cerrar cursores");}
         }
@@ -350,7 +350,7 @@ public class DAOLibros extends AbstractDAO {
         stmBorrado.executeUpdate();
         } catch (SQLException e){
           System.out.println(e.getMessage());
-          this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
+          this.getFachadaAplicacion().muestraExcepcion(e.getMessage(), 0);
         }finally{stmBorrado.close();}
 
 
@@ -368,13 +368,13 @@ public class DAOLibros extends AbstractDAO {
         }
         } catch (SQLException e){
           System.out.println(e.getMessage());
-          this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
+          this.getFachadaAplicacion().muestraExcepcion(e.getMessage(), 0);
         }finally{stmAutores.close();}
 
 
         } catch (SQLException e){
           System.out.println(e.getMessage());
-          this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
+          this.getFachadaAplicacion().muestraExcepcion(e.getMessage(), 0);
         }finally{
           try {stmLibro.close();} catch (SQLException e){System.out.println("Imposible cerrar cursores");}
         }
@@ -393,7 +393,7 @@ public class DAOLibros extends AbstractDAO {
         stmBorrado.executeUpdate();
         } catch (SQLException e){
           System.out.println(e.getMessage());
-          this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
+          this.getFachadaAplicacion().muestraExcepcion(e.getMessage(), 0);
         }finally{
           try {stmBorrado.close();} catch (SQLException e){System.out.println("Imposible cerrar cursores");}
         }
@@ -406,7 +406,7 @@ public class DAOLibros extends AbstractDAO {
         }
         } catch (SQLException e){
           System.out.println(e.getMessage());
-          this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
+          this.getFachadaAplicacion().muestraExcepcion(e.getMessage(), 0);
         }finally{
           try {
                stmBorrado.close();
@@ -431,7 +431,7 @@ public class DAOLibros extends AbstractDAO {
 
         } catch (SQLException e){
           System.out.println(e.getMessage());
-          this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
+          this.getFachadaAplicacion().muestraExcepcion(e.getMessage(), 0);
         }finally{
           try {stmEjemplar.close();} catch (SQLException e){System.out.println("Imposible cerrar cursores");}
         }
@@ -451,7 +451,7 @@ public class DAOLibros extends AbstractDAO {
         }
         } catch (SQLException e){
           System.out.println(e.getMessage());
-          this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
+          this.getFachadaAplicacion().muestraExcepcion(e.getMessage(), 0);
         }finally{
           try {stmEjemplar.close();} catch (SQLException e){System.out.println("Imposible cerrar cursores");}
         }
@@ -477,7 +477,7 @@ public class DAOLibros extends AbstractDAO {
 
         } catch (SQLException e){
           System.out.println(e.getMessage());
-          this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
+          this.getFachadaAplicacion().muestraExcepcion(e.getMessage(), 0);
         }finally{
           try {stmEjemplar.close();} catch (SQLException e){System.out.println("Imposible cerrar cursores");}
         }
