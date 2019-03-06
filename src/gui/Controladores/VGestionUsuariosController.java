@@ -10,10 +10,9 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 
-import javax.xml.soap.Text;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class VGestionUsuariosController {
 
@@ -51,6 +50,10 @@ public class VGestionUsuariosController {
     TableColumn<Usuario, String> emailCol;
     @FXML
     TableColumn<Usuario, String> tipoCol;
+    @FXML
+    CheckBox verContrasena;
+    @FXML
+    Label mostrarContrasena;
 
 
     public VGestionUsuariosController(FachadaAplicacion fa){
@@ -63,13 +66,17 @@ public class VGestionUsuariosController {
 
         //Cargamos el FXML
         try {
-            guWindow.setTitle("Iniciar Sesion");
+            guWindow.setTitle("Gestion Usuarios");
             guWindow.setMinWidth(250);
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/FXML/VGestionUsuarios.fxml"));
             //fxmlLoader.setRoot(this);
             fxmlLoader.setController(this);
             Parent root1 = (Parent) fxmlLoader.load();
             guWindow.setScene(new Scene(root1));
+            mostrarUsuarios();
+            verContrasena.setDisable(true);
+            //No mostramos la contrasena por defecto
+            mostrarContrasena.setVisible(false);
             guWindow.show();
         }catch (Exception e){
             System.out.println(e.getMessage());
@@ -118,6 +125,7 @@ public class VGestionUsuariosController {
         javafx.collections.ObservableList<Usuario> listaFinal = FXCollections.observableArrayList();
         listaFinal.addAll(listaUsuarios);
         tablaUsuarios.setItems(listaFinal);
+        tablaUsuarios.getSelectionModel().selectFirst();
     }
 
     public void nuevoUsuario(){
@@ -130,16 +138,98 @@ public class VGestionUsuariosController {
                 !selectorTipo.getText().equals("Tipo")
         ){
 
-            Usuario usuario  = new Usuario(
-                    idTxt.getText(),
-                    claveTxt.getText(),
-                    nombreTxt.getText(),
-                    direccionTxt.getText(),
-                    emailTxt.getText(),
-                    aplicacion.TipoUsuario.valueOf(selectorTipo.getText())
-            );
+            Usuario usuario = obtenerUsuario();
             fa.getGu().crearUsuario(usuario);
+        }
+    }
+
+    public void editarUsuario(){
+        verContrasena.setDisable(false);
+        if(tablaUsuarios.getSelectionModel().getSelectedItems().size() > 0){
+            Usuario usuario = tablaUsuarios.getSelectionModel().getSelectedItem();
+            idTxt.setText(usuario.getIdUsuario());
+            claveTxt.setText(usuario.getClave());
+            nombreTxt.setText(usuario.getNombre());
+            emailTxt.setText(usuario.getEmail());
+            selectorTipo.setText(usuario.getTipoStr());
+            direccionTxt.setText(usuario.getDireccion());
+        }
+    }
+
+    public void actualizarUsuario(){
+        Usuario usuario = obtenerUsuario();
+        if(usuario.getIdUsuario() != null){
+            fa.getGu().actualizarUsuario(usuario);
         }
 
     }
+
+    public void borrarUsuario(){
+        Usuario usuario = obtenerUsuario();
+        if(usuario.getIdUsuario() != null){
+            fa.getGu().borrarUsuario(usuario);
+            mostrarUsuarios();
+        }
+    }
+
+
+    public void clickNuevo(){
+        idTxt.setText("");
+        claveTxt.setText("");
+        nombreTxt.setText("");
+        direccionTxt.setText("");
+        emailTxt.setText("");
+        selectorTipo.setText("Tipo");
+        verContrasena.setDisable(true);
+
+    }
+    //Auxiliares
+
+    public Usuario obtenerUsuario(){
+        return new Usuario(
+                idTxt.getText(),
+                claveTxt.getText(),
+                nombreTxt.getText(),
+                direccionTxt.getText(),
+                emailTxt.getText(),
+                TipoUsuario.valueOf(selectorTipo.getText())
+        );
+    }
+
+    public void verContrasenaAction(){
+
+        if(verContrasena.isSelected() && !claveTxt.getText().isEmpty()){
+
+            claveTxt.setVisible(false);
+            mostrarContrasena.setVisible(true);
+            mostrarContrasena.setStyle("-fx-border-color: grey;\n" +
+                    "    -fx-border-width: 0 0 1 0; ");
+            mostrarContrasena.setText(claveTxt.getText());
+        }else{
+            claveTxt.setVisible(true);
+            mostrarContrasena.setVisible(false);
+        }
+    }
+
+    public void activarCheckbox(){
+        if(claveTxt.getText().isEmpty()){
+            verContrasena.setDisable(true);
+        }else{
+            verContrasena.setDisable(false);
+        }
+    }
+
+    public void guardarAction() throws SQLException {
+
+        java.util.List<Usuario> usuarios = fa.getGu().filtrarUsuarios(idTxt.getText(), null);
+        //En este caso estarias
+        if(usuarios.size() >= 1){
+            actualizarUsuario();
+        }else{
+            nuevoUsuario();
+        }
+        mostrarUsuarios();
+    }
+
+
 }

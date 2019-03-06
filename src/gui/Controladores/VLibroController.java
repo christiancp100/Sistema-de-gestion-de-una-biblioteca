@@ -1,17 +1,15 @@
 package gui.Controladores;
 
-import aplicacion.Categoria;
-import aplicacion.FachadaAplicacion;
-import aplicacion.Libro;
+import aplicacion.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
@@ -27,7 +25,10 @@ public class VLibroController{
     private Integer idLibro;
     private java.util.List<Integer> ejemplaresBorrados;
     private aplicacion.FachadaAplicacion fa;
+    private ArrayList<Integer> borrados;
 
+    //libro
+    private Libro libroActual;
 
     @FXML
     TextField textoTitulo;
@@ -56,6 +57,24 @@ public class VLibroController{
     @FXML
     Button btnBorrar2;
 
+    //Componentes de ejemplares
+    @FXML
+    TableView<Ejemplar> tablaEjemplares;
+    @FXML
+    TableColumn<Ejemplar, Integer> idCol;
+    @FXML
+    TableColumn<Ejemplar, String> localizadorCol;
+    @FXML
+    TableColumn<Ejemplar, String> anoCompraCol;
+    @FXML
+    TableColumn<Ejemplar, String> usuarioCol;
+    @FXML
+    TableColumn<Ejemplar, String> fechaDevCol;
+    @FXML
+    Button btnPrestar;
+    @FXML
+    Button btnDevolver;
+
     java.util.List<String> categorias;
     java.util.List<String> restoCategorias;
 
@@ -66,6 +85,7 @@ public class VLibroController{
         listaRestoCategorias = new ListView<>();
         listaRestoCategorias.getItems().addAll(restoCategorias);
         this.restoCategorias = restoCategorias;
+        borrados = new ArrayList<>();
     }
 
     public VLibroController(FachadaAplicacion fa, java.util.List<String> categorias,java.util.List<String> restoCategorias){
@@ -74,6 +94,7 @@ public class VLibroController{
         this.ejemplaresBorrados = new java.util.ArrayList<Integer>();
         this.restoCategorias = restoCategorias;
         this.categorias = categorias;
+        borrados = new ArrayList<>();
     }
 
 
@@ -84,9 +105,12 @@ public class VLibroController{
         listaRestoCategorias = new ListView<>();
         listaRestoCategorias.getItems().addAll(restoCategorias);
         this.restoCategorias = restoCategorias;
+        borrados = new ArrayList<>();
     }
 
     public void display(Libro libro){
+
+        libroActual = libro;
 
         vlibro = new Stage();
 
@@ -102,6 +126,8 @@ public class VLibroController{
             fxmlLoader.setController(this);
             Parent root1 = (Parent) fxmlLoader.load();
             vlibro.setScene(new Scene(root1));
+            //Cargamos los ejemplares
+            this.mostrarEjemplares();
             vlibro.show();
 
         }catch (Exception e){
@@ -168,10 +194,46 @@ public class VLibroController{
             //Añadimos la lista de categorías
             listaRestoCategorias.getItems().addAll(restoCategorias);
             listaCategoriasLibro.getItems().addAll(categorias);
+            //Cargamos los ejemplares
+            this.mostrarEjemplares();
+            tablaEjemplares.getSelectionModel().select(0);
+            this.desactivarPrestar();
+            this.desactivarDevolver();
 
         }catch (Exception e){
             System.out.println(e.getMessage());
         }
+    }
+
+    public void desactivarPrestar(){
+        if(tablaEjemplares.getSelectionModel().getSelectedItem() != null){
+            Ejemplar ejemplar = tablaEjemplares.getSelectionModel().getSelectedItem();
+            if(fa.estaPrestado(ejemplar.getLibro().getIdLibro(), ejemplar.getNumEjemplar())){
+                btnPrestar.setDisable(true);
+            }else{
+                btnPrestar.setDisable(false);
+            }
+        }else{
+            btnPrestar.setDisable(false);
+        }
+    }
+
+    public void desactivarDevolver(){
+        if(tablaEjemplares.getSelectionModel().getSelectedItem() != null){
+            Ejemplar ejemplar = tablaEjemplares.getSelectionModel().getSelectedItem();
+            if(!fa.estaPrestado(ejemplar.getLibro().getIdLibro(), ejemplar.getNumEjemplar())){
+                btnDevolver.setDisable(true);
+            }else{
+                btnDevolver.setDisable(false);
+            }
+        }else{
+            btnDevolver.setDisable(false);
+        }
+    }
+
+    public void clickTabla(){
+        this.desactivarPrestar();
+        this.desactivarDevolver();
     }
 
     //Actualizar de la pestaña libros
@@ -236,5 +298,133 @@ public class VLibroController{
         fa.getCp().buscarLibros();
         vlibro.close();
     }
+
+
+    //Parte de los ejemplares
+
+    public void mostrarEjemplares(){
+
+        //TODO comprobar los que estan prestados y mostrar usuario y fecha
+        boolean prestado;
+        Prestamo prestamo;
+
+        idCol.setCellValueFactory(new PropertyValueFactory<>("numEjemplar"));
+        localizadorCol.setCellValueFactory(new PropertyValueFactory<>("localizador"));
+        anoCompraCol.setCellValueFactory(new PropertyValueFactory<>("anoCompra"));
+        usuarioCol.setCellValueFactory(new PropertyValueFactory<>("usuario"));
+        fechaDevCol.setCellValueFactory(new PropertyValueFactory<>("fechaDev"));
+
+        tablaEjemplares.setEditable(true);
+        localizadorCol.setCellFactory(TextFieldTableCell.forTableColumn());
+        anoCompraCol.setCellFactory(TextFieldTableCell.forTableColumn());
+
+
+        java.util.List<Ejemplar> listaEjemplares = libroActual.getEjemplares();
+
+        // TODO hacer algo aqui no me acuerdo que
+
+        for(Ejemplar ejemplar : listaEjemplares){
+            prestado = fa.estaPrestado(ejemplar.getLibro().getIdLibro(), ejemplar.getNumEjemplar());
+            if(prestado){
+                prestamo = fa.consultarPrestamos(ejemplar.getLibro().getIdLibro(), ejemplar.getNumEjemplar());
+                ejemplar.setUsuario(prestamo.getIdUsaurio());
+
+                ejemplar.setFechaDev(fa.getFechaLimitePrestamo(ejemplar.getUsuario(),
+                        ejemplar.getLibro().getIdLibro(),
+                        ejemplar.getNumEjemplar(),
+                        prestamo.getFecha_prestamo()));
+            }else{
+                ejemplar.setUsuario(null);
+                ejemplar.setFechaDev(null);
+            }
+         }
+
+        javafx.collections.ObservableList<Ejemplar> listaFinal = FXCollections.observableArrayList();
+        listaFinal.addAll(listaEjemplares);
+        tablaEjemplares.setItems(listaFinal);
+    }
+
+    public void edicionDatosLocalizador(TableColumn.CellEditEvent<Ejemplar, String> productStringCellEditEvent ){
+       Ejemplar ejemplar = tablaEjemplares.getSelectionModel().getSelectedItem();
+       ejemplar.setLocalizador(productStringCellEditEvent.getNewValue());
+    }
+
+    public void edicionDatosAnoCompra(TableColumn.CellEditEvent<Ejemplar, String> productStringCellEditEvent ){
+        Ejemplar ejemplar = tablaEjemplares.getSelectionModel().getSelectedItem();
+        ejemplar.setAnoCompra(productStringCellEditEvent.getNewValue());
+    }
+
+    public void nuevoEjemplar(){
+        tablaEjemplares.getItems().add(
+                new Ejemplar(libroActual, null ,"", "")
+        );
+        tablaEjemplares.getSelectionModel().selectLast();
+    }
+
+    public void actualizarEjemplaresAction(){
+
+        fa.getCl().actualizarEjemplaresLibro(
+                libroActual.getIdLibro(),
+                tablaEjemplares.getItems(),
+                borrados);
+    }
+
+    public void borrarEjemplaresAction(){
+
+        if(tablaEjemplares.getSelectionModel().getSelectedItem() == null){
+            tablaEjemplares.getSelectionModel().select(0);
+        }
+
+        Ejemplar ejemplar = tablaEjemplares.getSelectionModel().getSelectedItem();
+
+        //Comprobamos que no esta prestado
+        if(!fa.estaPrestado(ejemplar.getLibro().getIdLibro(), ejemplar.getNumEjemplar())){
+            //Eliminar el ejemplar
+            fa.borrarEjemplar(ejemplar.getLibro().getIdLibro(), ejemplar.getNumEjemplar());
+            tablaEjemplares.getItems().remove(ejemplar);
+            System.out.println("Borrado");
+
+        }else{
+            //mostrar ventana de error
+        }
+
+    }
+
+    public void prestarBtnAction(){
+        fa.abrirPrestamos();
+    }
+
+    public Ejemplar getEjemplarSeleccionado(){
+        return tablaEjemplares.getSelectionModel().getSelectedItem();
+    }
+
+
+    public Prestamo ejemplarPrestado(Integer idLibro, Integer numEjemplar){
+        return fa.consultarPrestamos(idLibro, numEjemplar);
+    }
+
+    public void devolverBtnAction(){
+        Ejemplar ejemplar;
+
+        if(tablaEjemplares.getSelectionModel().getSelectedItem() == null){
+            tablaEjemplares.getSelectionModel().select(0);
+        }
+
+        ejemplar = tablaEjemplares.getSelectionModel().getSelectedItem();
+
+        java.util.List<Prestamo> prestamos = fa.consultarPrestamos();
+        for(Prestamo prestamo : prestamos){
+            if(prestamo.getIdLibro()==ejemplar.getLibro().getIdLibro() &&
+                    prestamo.getNumEjemplar()==ejemplar.getNumEjemplar()){
+                ejemplar.setUsuario(prestamo.getIdUsaurio());
+                fa.devolverPrestamo(ejemplar.getUsuario(), ejemplar.getLibro().getIdLibro(), ejemplar.getNumEjemplar());
+                System.out.println("Préstamo devuelto con éxito");
+                this.mostrarEjemplares();
+                break;
+            }
+        }
+
+    }
+
 
 }

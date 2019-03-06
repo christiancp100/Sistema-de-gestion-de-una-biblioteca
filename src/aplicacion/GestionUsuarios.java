@@ -61,4 +61,12 @@ public class GestionUsuarios {
         return fbd.consultarUsuarios();
   }
 
+  public void actualizarUsuario(Usuario usuario){
+        fbd.actualizarUsuario(usuario);
+  }
+
+  public void borrarUsuario(Usuario usuario){
+        fbd.borrarUsuario(usuario);
+  }
+
 }

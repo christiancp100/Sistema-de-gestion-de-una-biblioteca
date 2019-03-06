@@ -221,28 +221,42 @@
          <content>
             <BorderPane prefHeight="200.0" prefWidth="200.0">
                <center>
-                  <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+                  <VBox prefHeight="301.0" prefWidth="579.0" BorderPane.alignment="CENTER">
                      <children>
-                        <TableView prefHeight="200.0" prefWidth="200.0">
+                        <TableView fx:id="tablaEjemplares" onMouseClicked="#clickTabla" prefHeight="235.0" prefWidth="540.0">
                           <columns>
-                            <TableColumn prefWidth="75.0" text="ID" />
-                            <TableColumn prefWidth="75.0" text="Localizador" />
-                              <TableColumn prefWidth="75.0" text="Año de Compra" />
+                            <TableColumn fx:id="idCol" prefWidth="45.0" text="ID" />
+                            <TableColumn id="localizadorCol" fx:id="localizadorCol" onEditCommit="#edicionDatosLocalizador" prefWidth="167.0" text="Localizador" />
+                              <TableColumn fx:id="anoCompraCol" onEditCommit="#edicionDatosAnoCompra" prefWidth="112.0" text="Año Compra" />
+                              <TableColumn id="prestadoCol" fx:id="anoCompraCol1" onEditCommit="#edicionDatosAnoCompra" prefWidth="228.0" text="Prestado">
+                                 <columns>
+                                    <TableColumn fx:id="usuarioCol" onEditCommit="#edicionDatosAnoCompra" prefWidth="86.0" text="Usuario" />
+                                    <TableColumn fx:id="fechaDevCol" onEditCommit="#edicionDatosAnoCompra" prefWidth="64.0" text="Fecha Devolución" />
+                                 </columns>
+                              </TableColumn>
                           </columns>
-                           <columnResizePolicy>
-                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                           </columnResizePolicy>
                         </TableView>
-                        <HBox>
+                        <HBox prefHeight="31.0" prefWidth="888.0">
                            <children>
-                              <Button mnemonicParsing="false" text="Nuevo" />
-                              <Button mnemonicParsing="false" text="Borrar">
+                              <Button mnemonicParsing="false" onAction="#nuevoEjemplar" text="Nuevo">
                                  <HBox.margin>
-                                    <Insets left="20.0" />
+                                    <Insets />
+                                 </HBox.margin></Button>
+                              <Button mnemonicParsing="false" onAction="#borrarEjemplaresAction" text="Borrar">
+                                 <HBox.margin>
+                                    <Insets left="5.0" />
                                  </HBox.margin>
                               </Button>
-                              <Region prefHeight="17.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
-                              <Button mnemonicParsing="false" text="Actualizar" />
+                              <Button mnemonicParsing="false" onAction="#actualizarEjemplaresAction" text="Actualizar">
+                                 <HBox.margin>
+                                    <Insets left="5.0" />
+                                 </HBox.margin></Button>
+                              <Button id="btnPrestar" fx:id="btnPrestar" mnemonicParsing="false" onAction="#prestarBtnAction" text="Prestar">
+                                 <HBox.margin>
+                                    <Insets left="5.0" right="5.0" />
+                                 </HBox.margin>
+                              </Button>
+                              <Button id="btnDevolver" fx:id="btnDevolver" mnemonicParsing="false" onAction="#devolverBtnAction" text="Devolver" />
                            </children>
                            <VBox.margin>
                               <Insets top="10.0" />

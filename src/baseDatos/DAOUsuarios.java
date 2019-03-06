@@ -161,4 +161,54 @@ public class DAOUsuarios extends AbstractDAO {
         return usuarios;
     }
 
+    public void actualizarUsuario(Usuario usuario){
+        Connection con;
+        PreparedStatement stmEjemplar=null;
+
+        con=super.getConexion();
+
+        try {
+            stmEjemplar=con.prepareStatement("update usuario "+
+                    "set"+
+                    "   clave=?, "+
+                    "   nombre = ?,"+
+                    "   direccion=?,"+
+                    "   email=?,"+
+                    "   tipo_usuario=?"+
+                    "where id_usuario=?");
+            stmEjemplar.setString(1, usuario.getClave());
+            stmEjemplar.setString(2, usuario.getNombre());
+            stmEjemplar.setString(3, usuario.getDireccion());
+            stmEjemplar.setString(4, usuario.getEmail());
+            stmEjemplar.setString(5, usuario.getTipoStr());
+            stmEjemplar.setString(6, usuario.getIdUsuario());
+            stmEjemplar.executeUpdate();
+
+        } catch (SQLException e){
+            System.out.println(e.getMessage());
+            this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
+        }finally{
+            try {stmEjemplar.close();} catch (SQLException e){System.out.println("Imposible cerrar cursores");}
+        }
+    }
+
+    public void borrarUsuario(Usuario usuario){
+        Connection con;
+        PreparedStatement stmEjemplar=null;
+
+        con=super.getConexion();
+
+        try {
+            stmEjemplar=con.prepareStatement("delete from usuario where id_usuario=?");
+            stmEjemplar.setString(1, usuario.getIdUsuario());
+            stmEjemplar.executeUpdate();
+
+        } catch (SQLException e){
+            System.out.println(e.getMessage());
+            this.getFachadaAplicacion().muestraExcepcion(e.getMessage());
+        }finally{
+            try {stmEjemplar.close();} catch (SQLException e){System.out.println("Imposible cerrar cursores");}
+        }
+    }
+
 }

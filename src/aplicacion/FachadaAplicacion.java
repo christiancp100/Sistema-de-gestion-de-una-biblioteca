@@ -11,6 +11,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.sql.Date;
+import java.util.ArrayList;
+
 public class FachadaAplicacion extends Application {
 
     public static final String fxmlPath = "../gui/FXML/";
@@ -18,6 +21,7 @@ public class FachadaAplicacion extends Application {
     private GestionUsuarios gu;
     private GesionLibros cl;
     private GestionCategorias cg;
+    private GestionPrestamos gp;
     private FachadaBaseDatos fbd;
     private VPrincipalController cp;
 
@@ -29,6 +33,7 @@ public class FachadaAplicacion extends Application {
         gu = new GestionUsuarios(fgui, fbd);
         cl = new GesionLibros(fgui, fbd);
         cg = new GestionCategorias(fbd, fgui);
+        gp = new GestionPrestamos(fbd, fgui);
     }
 
     @Override
@@ -105,8 +110,61 @@ public class FachadaAplicacion extends Application {
     public java.util.List<Ejemplar> actualizarEjemplaresLibro(Integer idLibro, java.util.List<Ejemplar> ejemplares, java.util.List<Integer> borrar){
         return cl.actualizarEjemplaresLibro(idLibro, ejemplares, borrar);
     }
+
+    public void borrarEjemplares(Integer idLibro, java.util.List<Integer> ejemplares){
+        cl.borrarEjemplares(idLibro, ejemplares);
+    }
+
+    public void borrarEjemplar(Integer idLibro, Integer numEjemplar){
+        java.util.List<Integer> ejemplar = new ArrayList<>();
+        ejemplar.add(numEjemplar);
+        cl.borrarEjemplares(idLibro, ejemplar);
+    }
+
     public void mostrarVentanaCategorias(){
         cg.verCategorias();
     }
+
+    //Parte de prestamos
+
+    public void abrirPrestamos(){
+        cl.abrirPrestamos();
+    }
+
+    public Date getFechaLimitePrestamo(String idUsuario, Integer idLibro, Integer numEjemplar, Date fecha_prestamo) {
+        return gp.getFechaLimitePrestamo(idUsuario, idLibro, numEjemplar, fecha_prestamo);
+    }
+
+    public java.util.List<Prestamo> consultarPrestamos(String idUsuario){
+        return gp.consultarPrestamos(idUsuario);
+    }
+
+
+    public Prestamo consultarPrestamos(Integer idLibro, Integer numEjemplar) {
+        return gp.consultarPrestamos(idLibro, numEjemplar);
+    }
+
+    public java.util.List<Prestamo> consultarPrestamos(){
+        return gp.consultarPrestamos();
+    }
+
+    public java.util.List<Prestamo> consultarPrestamosVencidos(String idUsuario){
+        return gp.consultarPrestamosVencidos(idUsuario);
+    }
+
+    public void introducirPrestamo(String idUsuario, Integer idLibro, Integer numEjemplar){
+        gp.introducirPrestamo(idUsuario, idLibro, numEjemplar);
+    }
+
+    public void devolverPrestamo(String idUsuario, Integer idLibro, Integer numEjemplar) {
+        gp.devolverPrestamo(idUsuario, idLibro, numEjemplar);
+    }
+
+    public boolean estaPrestado(Integer idLibro, Integer numEjemplar){
+        return gp.estaPrestado(idLibro, numEjemplar);
+    }
+
+
+
 
 }

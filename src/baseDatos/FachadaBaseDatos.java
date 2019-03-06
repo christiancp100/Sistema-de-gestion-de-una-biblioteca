@@ -5,13 +5,12 @@
 
 package baseDatos;
 
-import aplicacion.Ejemplar;
-import aplicacion.Usuario;
-import aplicacion.Categoria;
-import aplicacion.Libro;
+import aplicacion.*;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Properties;
@@ -30,6 +29,7 @@ public class FachadaBaseDatos {
     private DAOLibros daoLibros;
     private DAOCategorias daoCategorias;
     private DAOUsuarios daoUsuarios;
+    private DAOPrestamos daoPrestamos;
 
     public FachadaBaseDatos (aplicacion.FachadaAplicacion fa){
         
@@ -58,6 +58,7 @@ public class FachadaBaseDatos {
             daoLibros = new DAOLibros(conexion, fa);
             daoCategorias = new DAOCategorias(conexion, fa);
             daoUsuarios = new DAOUsuarios(conexion, fa);
+            daoPrestamos = new DAOPrestamos(conexion, fa);
           
 
 
@@ -77,6 +78,14 @@ public class FachadaBaseDatos {
 
     public Usuario validarUsuario(String idUsuario, String clave){
         return daoUsuarios.validarUsuario(idUsuario, clave);
+    }
+
+    public void actualizarUsuario(Usuario usuario){
+        daoUsuarios.actualizarUsuario(usuario);
+    }
+
+    public void borrarUsuario(Usuario usuario){
+        daoUsuarios.borrarUsuario(usuario);
     }
 
     public void muestraExcepcion(String txtExcepcion){
@@ -160,4 +169,41 @@ public class FachadaBaseDatos {
     public boolean consultarCategoriaEnUso(String categoria){
         return daoCategorias.comprobarCategoriaEnUso(categoria);
     }
+
+    //Parte de prestamos
+
+    public Date getFechaLimitePrestamo(String idUsuario, Integer idLibro, Integer numEjemplar, Date fecha_prestamo) {
+        return daoPrestamos.getFechaLimitePrestamo(idUsuario, idLibro, numEjemplar, fecha_prestamo);
+    }
+
+    public java.util.List<Prestamo> consultarPrestamos(String idUsuario) {
+        return daoPrestamos.consultarPrestamos(idUsuario);
+    }
+
+    public java.util.List<Prestamo> consultarPrestamos() {
+        return daoPrestamos.consultarPrestamos();
+    }
+
+    public Prestamo consultarPrestamos(Integer idLibro, Integer numEjemplar) {
+        return daoPrestamos.consultarPrestamos(idLibro, numEjemplar);
+    }
+
+
+
+    public boolean estaPrestado(Integer idLibro, Integer numEjemplar){
+        return daoPrestamos.estaPrestado(idLibro, numEjemplar);
+    }
+
+    public java.util.List<Prestamo> consultarPrestamosVencidos(String idUsuario){
+        return daoPrestamos.consultarVencidos(idUsuario);
+    }
+
+    public void introducirPrestamo(String idUsuario, Integer idLibro, Integer numEjemplar){
+        daoPrestamos.introducirPrestamo(idUsuario, idLibro, numEjemplar);
+    }
+
+    public void devolverPrestamo(String idUsuario, Integer idLibro, Integer numEjemplar) {
+        daoPrestamos.devolverPrestamo(idUsuario, idLibro, numEjemplar);
+    }
+
 }

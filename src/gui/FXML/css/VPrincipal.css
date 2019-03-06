@@ -96,6 +96,7 @@
     -fx-background-color: -fx-focus-color;
 }
 
+
 .split-pane:horizontal > .split-pane-divider {
     -fx-border-color: transparent #1d1d1d transparent #1d1d1d;
     -fx-background-color: transparent, derive(#1d1d1d,20%);
@@ -186,4 +187,8 @@
 
 #descripcionTxt{
     -fx-border-width: 1 1 1 1;
+}
+
+.check-box{
+    -fx-background-color: -fx-primary;
 }

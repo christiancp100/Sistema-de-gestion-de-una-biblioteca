@@ -3,6 +3,7 @@
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
@@ -45,7 +46,7 @@
       </HBox>
    </top>
    <center>
-      <TableView fx:id="tablaUsuarios" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <TableView fx:id="tablaUsuarios" onMouseClicked="#editarUsuario" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
         <columns>
           <TableColumn fx:id="idCol" prefWidth="75.0" text="ID" />
           <TableColumn fx:id="nombreCol" prefWidth="75.0" text="Nombre" />
@@ -70,15 +71,25 @@
                         <Insets top="10.0" />
                      </HBox.margin>
                   </Label>
-                  <TextField fx:id="idTxt" prefHeight="27.0" prefWidth="65.0" />
-                  <Region prefHeight="0.0" prefWidth="65.0" />
+                  <TextField fx:id="idTxt" prefHeight="33.0" prefWidth="76.0" />
+                  <Region prefHeight="34.0" prefWidth="50.0" />
                   <Label text="Clave:">
                      <HBox.margin>
                         <Insets top="10.0" />
                      </HBox.margin>
                   </Label>
-                  <Region prefHeight="34.0" prefWidth="26.0" />
-                  <PasswordField fx:id="claveTxt" prefHeight="33.0" prefWidth="141.0" />
+                  <Region prefHeight="34.0" prefWidth="11.0" />
+                  <Label fx:id="mostrarContrasena">
+                     <HBox.margin>
+                        <Insets top="10.0" />
+                     </HBox.margin>
+                  </Label>
+                  <PasswordField fx:id="claveTxt" onKeyTyped="#activarCheckbox" prefHeight="33.0" prefWidth="128.0" />
+                  <CheckBox fx:id="verContrasena" mnemonicParsing="false" onAction="#verContrasenaAction">
+                     <HBox.margin>
+                        <Insets left="10.0" top="10.0" />
+                     </HBox.margin>
+                  </CheckBox>
                   <MenuButton id="menuButton" fx:id="selectorTipo" alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="34.0" prefWidth="92.0" style="-fx-background-color: #1d1d1d;" text="Tipo" textFill="WHITE" HBox.hgrow="ALWAYS">
                     <items>
                       <MenuItem fx:id="adminSel" mnemonicParsing="false" onAction="#clickAdmin" text="Administrador" />
@@ -122,9 +133,9 @@
             </HBox>
             <HBox spacing="20.0">
                <children>
-                  <Button mnemonicParsing="false" onAction="#nuevoUsuario" prefHeight="31.0" prefWidth="152.0" text="Nuevo" />
-                  <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="148.0" text="Guardar" />
-                  <Button layoutX="69.0" layoutY="10.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="137.0" text="Borrar" />
+                  <Button mnemonicParsing="false" onAction="#clickNuevo" prefHeight="31.0" prefWidth="152.0" text="Nuevo" />
+                  <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#guardarAction" prefHeight="31.0" prefWidth="148.0" text="Guardar" />
+                  <Button layoutX="69.0" layoutY="10.0" mnemonicParsing="false" onAction="#borrarUsuario" prefHeight="31.0" prefWidth="137.0" text="Borrar" />
                   <Region prefHeight="31.0" prefWidth="10.0" HBox.hgrow="ALWAYS" />
                   <Button layoutX="128.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnSalirAction" prefHeight="31.0" prefWidth="107.0" text="Salir" />
                </children>

@@ -456,6 +456,8 @@ public class DAOLibros extends AbstractDAO {
           try {stmEjemplar.close();} catch (SQLException e){System.out.println("Imposible cerrar cursores");}
         }
   }
+
+
   public void modificarEjemplarLibro(Integer idLibro, Ejemplar ejemplar){
         Connection con;
         PreparedStatement stmEjemplar=null;
@@ -480,5 +482,6 @@ public class DAOLibros extends AbstractDAO {
           try {stmEjemplar.close();} catch (SQLException e){System.out.println("Imposible cerrar cursores");}
         }
   }
+
 
 }

@@ -6,6 +6,8 @@
 package aplicacion;
 import gui.FachadaGui;
 import baseDatos.FachadaBaseDatos;
+import org.omg.PortableInterceptor.INACTIVE;
+
 /**
  *
  * @author basesdatos
@@ -74,5 +76,13 @@ public class GesionLibros{
        fbd.borrarEjemplaresLibro(idLibro, borrar);
 
        return fbd.consultarEjemplaresLibro(idLibro);
+    }
+
+    public void borrarEjemplares(Integer idLibro, java.util.List<Integer> ejemplares){
+        fbd.borrarEjemplaresLibro(idLibro, ejemplares);
+    }
+
+    public void abrirPrestamos(){
+        fgui.abrirPrestamos();
     }
 }

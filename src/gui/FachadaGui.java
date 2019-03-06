@@ -16,6 +16,8 @@ import gui.Controladores.*;
 public class FachadaGui {
     aplicacion.FachadaAplicacion fa;
     VPrincipalController cp;
+    VLibroController vl;
+
 
     public FachadaGui(FachadaAplicacion fa, VPrincipalController cp){
         this.fa = fa;
@@ -37,9 +39,7 @@ public class FachadaGui {
     }
 
     public void visualizaLibro(Libro l, java.util.List<String>restoCategorias){
-        VLibroController vl;
         java.util.List<String> categorias = new java.util.ArrayList<String>();
-        
         for(Categoria c:l.getCategorias()){
             categorias.add(c.getNombre());
         }
@@ -49,7 +49,6 @@ public class FachadaGui {
     }
 
     public void nuevoLibro(java.util.List<String>  restoCategorias){
-        VLibroController vl;
         vl=new VLibroController(fa, restoCategorias);
         vl.display();
     }
@@ -58,6 +57,11 @@ public class FachadaGui {
     public void verCategorias(){
         VGestionCategoriasController vgc = new VGestionCategoriasController(fa);
         vgc.display();
+    }
+
+    public void abrirPrestamos(){
+        VPrestamosController vp = new VPrestamosController(fa, vl);
+        vp.display();
     }
    
 }
