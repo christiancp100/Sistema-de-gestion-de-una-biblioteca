@@ -61,6 +61,8 @@ public class DAOCategorias extends AbstractDAO {
             stmCategorias.setString(2, categoria.getDescripcion());
             stmCategorias.executeUpdate();
 
+            this.getFachadaAplicacion().muestraExcepcion("Categoría creada", 1);
+
         } catch (SQLException e){
             System.out.println(e.getMessage());
             this.getFachadaAplicacion().muestraExcepcion(e.getMessage(), 0);
@@ -80,7 +82,8 @@ public class DAOCategorias extends AbstractDAO {
         try  {
             stmCategorias=con.prepareStatement("delete from categoria where nombre = ?");
             stmCategorias.setString(1, nombre);
-            stmCategorias.executeQuery();
+            stmCategorias.executeUpdate();
+            this.getFachadaAplicacion().muestraExcepcion("Categoria borrada", 1);
 
         } catch (SQLException e){
             System.out.println(e.getMessage());
@@ -118,7 +121,6 @@ public class DAOCategorias extends AbstractDAO {
         }finally{
             try {stmCategorias.close();} catch (SQLException e){System.out.println("Imposible cerrar cursores");}
         }
-        //System.out.println("Parece que no existe " + cuenta );
         return false;
     }
 }

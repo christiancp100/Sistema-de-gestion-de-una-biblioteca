@@ -88,10 +88,6 @@ public class VAutenticacionController {
 
         System.out.println(usuariotxt.getText());
 
-        //Modificar esto
-        usuariotxt.setText("JAlvarez");
-        passwordtxt.setText("pja");
-
         if(fa.comprobarAutentificacion(usuariotxt.getText(), passwordtxt.getText())){
 
             cp.setEtiquetaSesion(usuariotxt.getText());
@@ -101,7 +97,8 @@ public class VAutenticacionController {
             System.out.println("Se ha realizado con éxito la autentificacion");
 
         }else{
-            System.out.println("No furula");
+            VAvisoController vAviso = new VAvisoController("Usuario o contraseña INCORRECTOS", 0);
+            vAviso.display();
         }
 
     }

@@ -285,6 +285,8 @@ public class DAOLibros extends AbstractDAO {
             stmAutores.executeUpdate();
             numAutor=numAutor+1;
         }
+            this.getFachadaAplicacion().muestraExcepcion("El libro se ha creado correctamente", 1);
+
         } catch (SQLException e){
           System.out.println(e.getMessage());
           this.getFachadaAplicacion().muestraExcepcion(e.getMessage(), 0);
@@ -309,7 +311,7 @@ public class DAOLibros extends AbstractDAO {
         stmLibro=con.prepareStatement("delete from libro where id_libro = ?");
         stmLibro.setInt(1, idLibro);
         stmLibro.executeUpdate();
-
+        this.getFachadaAplicacion().muestraExcepcion("El libro se ha borrado correctamente", 1);
         } catch (SQLException e){
           System.out.println(e.getMessage());
           this.getFachadaAplicacion().muestraExcepcion(e.getMessage(), 0);
@@ -343,7 +345,6 @@ public class DAOLibros extends AbstractDAO {
         stmLibro.setInt(6, libro.getIdLibro());
         stmLibro.executeUpdate();
 
-
         try{
         stmBorrado=con.prepareStatement("delete from autor where libro=?");
         stmBorrado.setInt(1, libro.getIdLibro());
@@ -366,6 +367,9 @@ public class DAOLibros extends AbstractDAO {
             stmAutores.executeUpdate();
             numAutor=numAutor+1;
         }
+
+            this.getFachadaAplicacion().muestraExcepcion("El libro se ha modificado correctamente", 1);
+
         } catch (SQLException e){
           System.out.println(e.getMessage());
           this.getFachadaAplicacion().muestraExcepcion(e.getMessage(), 0);

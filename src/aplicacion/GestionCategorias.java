@@ -20,7 +20,7 @@ public class GestionCategorias {
     }
 
     public java.util.ArrayList<Categoria> obtenerCategorias(){
-        return new ArrayList<>(fbd.consultarCategorias());
+        return new ArrayList(fbd.consultarCategorias());
     }
 
     public void anhadirCategoria(Categoria categoria){

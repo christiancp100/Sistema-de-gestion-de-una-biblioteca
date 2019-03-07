@@ -161,7 +161,6 @@ public class VGestionUsuariosController {
         if(usuario.getIdUsuario() != null){
             fa.getGu().actualizarUsuario(usuario);
         }
-
     }
 
     public void borrarUsuario(){

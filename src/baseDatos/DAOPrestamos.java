@@ -87,7 +87,7 @@ public class DAOPrestamos extends AbstractDAO {
 
 
     public boolean estaPrestado(Integer idLibro, Integer numEjemplar){
-        java.util.List<Prestamo> resultado = new ArrayList<>();
+        java.util.List<Prestamo> resultado = new ArrayList();
         Connection con;
         PreparedStatement stmPrestamos=null;
         ResultSet rsPrestamos;
@@ -246,16 +246,18 @@ public class DAOPrestamos extends AbstractDAO {
             stmPrestamos.setInt(2,idLibro);
             stmPrestamos.setInt(3,numEjemplar);
 
-            stmPrestamos.executeQuery();
-
+            stmPrestamos.executeUpdate();
+            this.getFachadaAplicacion().muestraExcepcion("El préstamo se ha efectuado correctamente", 1);
         } catch (SQLException e){
-            System.out.println(e.getMessage());
-            this.getFachadaAplicacion().muestraExcepcion(e.getMessage(), 0);
+            System.out.println(e.toString());
+            this.getFachadaAplicacion().muestraExcepcion("No se ha podido efectuar el préstamo", 0);
+
         }finally{
             try {stmPrestamos.close();} catch (SQLException e){System.out.println("Imposible cerrar cursores");}
         }
 
     }
+
     public void devolverPrestamo(String idUsuario, Integer idLibro, Integer numEjemplar){
         Connection con;
         PreparedStatement stmPrestamos=null;
@@ -273,6 +275,8 @@ public class DAOPrestamos extends AbstractDAO {
             stmPrestamos.setInt(3,numEjemplar);
 
             stmPrestamos.executeUpdate();
+
+            this.getFachadaAplicacion().muestraExcepcion("El ejemplar se ha devuelto con éxito", 1);
 
         } catch (SQLException e){
             System.out.println(e.getMessage());

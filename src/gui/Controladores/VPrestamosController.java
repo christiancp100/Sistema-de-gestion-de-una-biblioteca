@@ -131,13 +131,15 @@ public class VPrestamosController {
 
         if(fa.consultarPrestamosVencidos(usuario.getIdUsuario()).size() > 0){
             System.out.println("No se puede realizar el prestamo");
+            fa.muestraExcepcion("El usuario tiene prestamos vencidos", 0);
         }else{
             if(!ejemplarPrestado(ejemplar.getLibro().getIdLibro(), ejemplar.getNumEjemplar())){
                 System.out.println("Se puede realizar el prestamo");
                 fa.introducirPrestamo(usuario.getIdUsuario(), ejemplar.getLibro().getIdLibro(), ejemplar.getNumEjemplar());
+
             }else{
                 System.out.println("El prestamo no puede efectuarse, ejemplar prestado");
-                //Ventana de error
+                fa.muestraExcepcion("El prestamo no puede efectuarse, ejemplar prestado", 0);
             }
         }
         vLibro.mostrarEjemplares();

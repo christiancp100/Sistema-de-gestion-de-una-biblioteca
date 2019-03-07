@@ -116,7 +116,7 @@ public class FachadaAplicacion extends Application {
     }
 
     public void borrarEjemplar(Integer idLibro, Integer numEjemplar){
-        java.util.List<Integer> ejemplar = new ArrayList<>();
+        java.util.List<Integer> ejemplar = new ArrayList();;
         ejemplar.add(numEjemplar);
         cl.borrarEjemplares(idLibro, ejemplar);
     }

@@ -130,6 +130,9 @@ public class VLibroController{
             this.mostrarEjemplares();
             vlibro.show();
 
+            btnDevolver.setDisable(true);
+            btnPrestar.setDisable(true);
+
         }catch (Exception e){
             System.out.println(e.getMessage());
         }
@@ -199,6 +202,9 @@ public class VLibroController{
             tablaEjemplares.getSelectionModel().select(0);
             this.desactivarPrestar();
             this.desactivarDevolver();
+            
+            btnDevolver.setDisable(true);
+            btnPrestar.setDisable(true);
 
         }catch (Exception e){
             System.out.println(e.getMessage());
@@ -246,8 +252,6 @@ public class VLibroController{
         idLibro=fa.actualizarLibro(l);
         textoId.setText(idLibro.toString());
         btnActualizarCat.setDisable(false);
-        //btnActualizarCategoriasLibro.setEnabled(true);
-        //btnActualizarEjemplaresLibro.setEnabled(true);
         btnBorrar1.setDisable(false);
         btnBorrar2.setDisable(false);
     }
@@ -257,6 +261,8 @@ public class VLibroController{
         if ((textoNuevoAutor.getText()!=null) && !(textoNuevoAutor.getText().isEmpty())) {
             //Añadir autor a la lista
             listaAutores.getItems().addAll(textoNuevoAutor.getText());
+        }else{
+            fa.muestraExcepcion("No se pudo añadir el autor", 0);
         }
      }
 
@@ -264,6 +270,9 @@ public class VLibroController{
 
          if(listaAutores.getSelectionModel().getSelectedItems().size() > 0){
              listaAutores.getItems().remove(listaAutores.getSelectionModel().getSelectedItem());
+
+         }else{
+             fa.muestraExcepcion("Ningún autor seleccionado", 0);
          }
     }
 
@@ -304,7 +313,6 @@ public class VLibroController{
 
     public void mostrarEjemplares(){
 
-        //TODO comprobar los que estan prestados y mostrar usuario y fecha
         boolean prestado;
         Prestamo prestamo;
 
@@ -321,7 +329,6 @@ public class VLibroController{
 
         java.util.List<Ejemplar> listaEjemplares = libroActual.getEjemplares();
 
-        // TODO hacer algo aqui no me acuerdo que
 
         for(Ejemplar ejemplar : listaEjemplares){
             prestado = fa.estaPrestado(ejemplar.getLibro().getIdLibro(), ejemplar.getNumEjemplar());
@@ -386,6 +393,7 @@ public class VLibroController{
 
         }else{
             //mostrar ventana de error
+            fa.muestraExcepcion("Error borrando el ejemplar", 0);
         }
 
     }
